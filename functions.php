@@ -1,4 +1,6 @@
 <?php
+/*
+*/
 function nirvana_burdick_enqueue_styles() {
 
   $parent_style = 'nirvanas';
@@ -11,6 +13,10 @@ function nirvana_burdick_enqueue_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'nirvana_burdick_enqueue_styles');
+
+add_image_size( 'staff-photo', 260, 184, array('center', 'top') );
+
+add_filter( 'image_size_names_choose', 'staff_photo_size' );
 
 function hero_widgets_init() {
   register_sidebar( array(
@@ -34,5 +40,10 @@ function footer_bottom_widgets_init() {
   ) );
 }
 
+function staff_photo_size( $sizes ) {
+  return array_merge( $sizes, array(
+    'staff-photo' => __('Staff photo size'),
+  ));
+}
 
 add_action('widgets_init', 'footer_bottom_widgets_init');
